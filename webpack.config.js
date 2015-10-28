@@ -7,7 +7,7 @@ module.exports = {
         loaders: [
             { test: /\.jsx?$/, exclude: /node_modules/, loader: 'babel' },
             { test: /\.s?css$/, loaders: ['style', 'css', 'sass'] },
-            { test: /\.(eot|woff2?|ttf|svg)$/, loaders: ['file', 'url'] }
+            { test: /\.(eot|woff2?|ttf|svg)$/, loader: 'file', query: { name: 'dist/[name].[ext]' } }
         ]
     }
 };
