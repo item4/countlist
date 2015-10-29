@@ -1,8 +1,9 @@
+import React from 'react';
 import ReactDOM from 'react-dom';
 
-import {CountList} from './countlist';
+import {CountList} from 'countlist';
 
-import './style.scss';
+import 'style.scss';
 
 fetch('data.json')
     .then(function(response){

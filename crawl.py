@@ -13,18 +13,19 @@ rows = document.cssselect('table.tablesorter tbody tr')
 
 data = []
 
-for row in rows:
+for index, row in enumerate(rows):
     data.append({
+        'id': index,
         'status': row[1].text,
         'category': row[2].text,
         'title': row[3].text,
-        'series': row[4].text,
+        'series': row[4].text or row[3].text,
         'start': row[5].text,
         'watched': int(non_number.sub('', row[6].text) or -1),
         'total': int(non_number.sub('', row[7].text) or -1),
         'score': int(non_number.sub('', row[8].text) or 0),
         'class': row[9].attrib.get('class', None),
-        'commant': row[9].text,
+        'comment': row[9].text,
     })
 
 with open('data.json', 'w') as f:

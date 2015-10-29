@@ -1,10 +1,28 @@
 $icon-font-path: '~bootstrap-sass/assets/fonts/bootstrap/';
 @import "~bootstrap-sass/assets/stylesheets/bootstrap";
+$fa-font-path: '~font-awesome/fonts';
+@import "~font-awesome/scss/font-awesome.scss";
 
 main {
     @extend .container;
 
     table {
         @extend .table;
+
+        span[class] {
+            @extend .fa;
+            &.r19 {
+                @extend .fa-ban;
+
+                color: red;
+                margin-right: 3px;
+            }
+
+            &.info {
+                @extend .fa-info-circle;
+
+                margin-left: 5px;
+            }
+        }
     }
 }

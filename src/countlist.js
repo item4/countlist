@@ -47,12 +47,21 @@ class Table extends React.Component {
 class Rows extends React.Component {
     render() {
         let rows = this.props.data.map((ani, index) => {
+            let r19 = null;
+            if (ani.class === 'r19') {
+                r19 = <span className="r19" title="이 애니는 19금입니다!"></span>;
+            }
+
+            let info_icon = null;
+            if (ani.comment) {
+                info_icon = <span className="info" title={ani.comment}></span>;
+            }
             return (
-                <tr>
+                <tr key={ani.id}>
                     <td>{index+1}</td>
                     <td>{ani.status}</td>
                     <td>{ani.category}</td>
-                    <td><span className="glyphicon glyphicon-info-sign"></span>{ani.title}</td>
+                    <td>{r19}{ani.title}{info_icon}</td>
                     <td>{ani.series}</td>
                     <td>{ani.start}</td>
                     <td>{ani.watched}</td>
