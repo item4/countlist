@@ -6,7 +6,7 @@ import {CountList} from 'countlist';
 import 'style.scss';
 
 let data;
-let sort_orders = {
+let sort_order = {
     'id': 'asc',
     'watched': 'asc',
     'total': 'asc',
@@ -19,7 +19,7 @@ let sort_orders = {
 };
 
 function toggle_sort_order(cond) {
-    sort_orders[cond] = sort_orders[cond] === 'asc' ? 'desc' : 'asc';
+    sort_order[cond] = sort_order[cond] === 'asc' ? 'desc' : 'asc';
 }
 
 let sort = (cond) => () => {
@@ -29,7 +29,7 @@ let sort = (cond) => () => {
         case 'watched':
         case 'total':
         case 'score':
-            if (sort_orders[cond] === 'asc') {
+            if (sort_order[cond] === 'asc') {
                 sort_func = (a, b) => { return a[cond]-b[cond]; };
             } else {
                 sort_func = (a, b) => { return b[cond]-a[cond]; };
@@ -41,7 +41,7 @@ let sort = (cond) => () => {
         case 'series':
         case 'start':
         default:
-            if (sort_orders[cond] === 'asc') {
+            if (sort_order[cond] === 'asc') {
                 sort_func = (a, b) => { return a[cond] === b[cond] ? 0 : a[cond] > b[cond] ? -1 : 1; };
             } else {
                 sort_func = (a, b) => { return a[cond] === b[cond] ? 0 : b[cond] > a[cond] ? -1 : 1; };
@@ -54,7 +54,7 @@ let sort = (cond) => () => {
 };
 
 function render(data) {
-    ReactDOM.render(<CountList data={data} sort={sort} />, document.querySelector('body'));
+    ReactDOM.render(<CountList data={data} sort={sort} sort_order={sort_order} />, document.querySelector('body'));
 }
 
 fetch('data.json')
@@ -63,7 +63,7 @@ fetch('data.json')
     })
     .then(function(json){
         data = json;
-        render(json);
+        sort('id')();
     }).catch(function(ex){
         console.log(ex);
     });

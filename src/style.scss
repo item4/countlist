@@ -9,6 +9,37 @@ main {
     table {
         @extend .table;
 
+        thead {
+            tr {
+                th {
+                    cursor: pointer;
+
+                    span[class] {
+                        @extend .fa;
+
+                        &.num {
+                            &.asc {
+                                @extend .fa-sort-amount-asc;
+                            }
+                            &.desc {
+                                @extend .fa-sort-amount-desc;
+                            }
+                        }
+                        &.string {
+                            &.asc {
+                                @extend .fa-sort-alpha-asc;
+                            }
+                            &.desc {
+                                @extend .fa-sort-alpha-desc;
+                            }
+                        }
+
+                        margin-left: 5px;
+                    }
+                }
+            }
+        }
+
         span[class] {
             @extend .fa;
             &.r19 {
