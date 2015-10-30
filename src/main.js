@@ -6,7 +6,7 @@ import {CountList} from 'countlist';
 import 'style.scss';
 
 let data;
-let sort_order = {
+let sortOrder = {
     'id': 'asc',
     'watched': 'asc',
     'total': 'asc',
@@ -18,18 +18,18 @@ let sort_order = {
     'start': 'asc'
 };
 
-function toggle_sort_order(cond) {
-    sort_order[cond] = sort_order[cond] === 'asc' ? 'desc' : 'asc';
+function toggleSortOrder(cond) {
+    sortOrder[cond] = sortOrder[cond] === 'asc' ? 'desc' : 'asc';
 }
 
-let sort = (cond) => () => {
+let getSort = (cond) => {
     let sort_func;
     switch (cond) {
         case 'id':
         case 'watched':
         case 'total':
         case 'score':
-            if (sort_order[cond] === 'asc') {
+            if (sortOrder[cond] === 'asc') {
                 sort_func = (a, b) => { return a[cond]-b[cond]; };
             } else {
                 sort_func = (a, b) => { return b[cond]-a[cond]; };
@@ -41,20 +41,18 @@ let sort = (cond) => () => {
         case 'series':
         case 'start':
         default:
-            if (sort_order[cond] === 'asc') {
+            if (sortOrder[cond] === 'asc') {
                 sort_func = (a, b) => { return a[cond] === b[cond] ? 0 : a[cond] > b[cond] ? -1 : 1; };
             } else {
                 sort_func = (a, b) => { return a[cond] === b[cond] ? 0 : b[cond] > a[cond] ? -1 : 1; };
             }
             break;
     }
-    data.sort(sort_func);
-    render(data);
-    toggle_sort_order(cond);
+    return sort_func;
 };
 
 function render(data) {
-    ReactDOM.render(<CountList data={data} sort={sort} sort_order={sort_order} />, document.querySelector('body'));
+    ReactDOM.render(<CountList data={data} getSort={getSort} sortOrder={sortOrder} toggleSortOrder={toggleSortOrder} />, document.querySelector('body'));
 }
 
 fetch('data.json')
@@ -62,8 +60,9 @@ fetch('data.json')
         return response.json();
     })
     .then(function(json){
-        data = json;
-        sort('id')();
+        data = json.sort(getSort('id'));
+        toggleSortOrder('id');
+        render(data);
     }).catch(function(ex){
         console.log(ex);
     });

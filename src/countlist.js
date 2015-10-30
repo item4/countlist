@@ -21,7 +21,7 @@ export class CountList extends React.Component {
             <main>
                 <h1>내가 본 애니 목록</h1>
                 <Summary data={this.props.data} />
-                <Table data={this.props.data} onToolTip={this.showToolTip.bind(this)} sort={this.props.sort} sort_order={this.props.sort_order} />
+                <Table data={this.props.data} onToolTip={this.showToolTip.bind(this)} getSort={this.props.getSort} sortOrder={this.props.sortOrder} toggleSortOrder={this.props.toggleSortOrder} />
                 <ToolTip ref="tooltip" onMouseLeave={this.hideToolTip.bind(this)} />
             </main>
         );
@@ -37,20 +37,26 @@ class Summary extends React.Component {
 }
 
 class Table extends React.Component {
+    chageOrder(key) {
+        let sortFunc = this.props.getSort(key);
+        this.props.data.sort(sortFunc);
+        this.props.toggleSortOrder(key);
+        ReactDOM.render(<CountList data={this.props.data} getSort={this.props.getSort} sortOrder={this.props.sortOrder} toggleSortOrder={this.props.toggleSortOrder} />, document.querySelector('body'));
+    }
     render() {
         return (
             <table>
                 <thead>
                     <tr>
-                        <th onClick={this.props.sort('id')}>번호<span className={'num ' + (this.props.sort_order.id === 'asc' ? 'desc' : 'asc')}></span></th>
-                        <th onClick={this.props.sort('status')}>현황<span className={'string ' + (this.props.sort_order.status === 'asc' ? 'desc' : 'asc')}></span></th>
-                        <th onClick={this.props.sort('category')}>유형<span className={'string ' + (this.props.sort_order.category === 'asc' ? 'desc' : 'asc')}></span></th>
-                        <th onClick={this.props.sort('title')}>제목<span className={'string ' + (this.props.sort_order.title === 'asc' ? 'desc' : 'asc')}></span></th>
-                        <th onClick={this.props.sort('series')}>시리즈<span className={'string ' + (this.props.sort_order.series === 'asc' ? 'desc' : 'asc')}></span></th>
-                        <th onClick={this.props.sort('start')}>방영 시작<span className={'string ' + (this.props.sort_order.start === 'asc' ? 'desc' : 'asc')}></span></th>
-                        <th onClick={this.props.sort('watched')}>감상 편수<span className={'num ' + (this.props.sort_order.watched === 'asc' ? 'desc' : 'asc')}></span></th>
-                        <th onClick={this.props.sort('total')}>전체 편수<span className={'num ' + (this.props.sort_order.total === 'asc' ? 'desc' : 'asc')}></span></th>
-                        <th onClick={this.props.sort('score')}>점수<span className={'num ' + (this.props.sort_order.score === 'asc' ? 'desc' : 'asc')}></span></th>
+                        <th onClick={() => this.chageOrder('id')}>번호<span className={'num ' + (this.props.sortOrder.id === 'asc' ? 'desc' : 'asc')}></span></th>
+                        <th onClick={() => this.chageOrder('status')}>현황<span className={'string ' + (this.props.sortOrder.status === 'asc' ? 'desc' : 'asc')}></span></th>
+                        <th onClick={() => this.chageOrder('category')}>유형<span className={'string ' + (this.props.sortOrder.category === 'asc' ? 'desc' : 'asc')}></span></th>
+                        <th onClick={() => this.chageOrder('title')}>제목<span className={'string ' + (this.props.sortOrder.title === 'asc' ? 'desc' : 'asc')}></span></th>
+                        <th onClick={() => this.chageOrder('series')}>시리즈<span className={'string ' + (this.props.sortOrder.series === 'asc' ? 'desc' : 'asc')}></span></th>
+                        <th onClick={() => this.chageOrder('start')}>방영 시작<span className={'string ' + (this.props.sortOrder.start === 'asc' ? 'desc' : 'asc')}></span></th>
+                        <th onClick={() => this.chageOrder('watched')}>감상 편수<span className={'num ' + (this.props.sortOrder.watched === 'asc' ? 'desc' : 'asc')}></span></th>
+                        <th onClick={() => this.chageOrder('total')}>전체 편수<span className={'num ' + (this.props.sortOrder.total === 'asc' ? 'desc' : 'asc')}></span></th>
+                        <th onClick={() => this.chageOrder('score')}>점수<span className={'num ' + (this.props.sortOrder.score === 'asc' ? 'desc' : 'asc')}></span></th>
                     </tr>
                 </thead>
                 <Rows data={this.props.data} onToolTip={this.props.onToolTip} />
