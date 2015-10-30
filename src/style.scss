@@ -25,4 +25,18 @@ main {
             }
         }
     }
+
+    .ani_tooltip {
+        background: rgba(100, 100, 100, 0.8);
+        border-radius: 1rem;
+        color: white;
+        display: none;
+        height: 100px;
+        left: 0px;
+        padding: 2rem;
+        position: absolute;
+        top: 0px;
+        width: 400px;
+        z-index: 1000;
+    }
 }

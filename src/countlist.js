@@ -1,13 +1,33 @@
 import React from 'react';
+import ReactDOM from 'react-dom';
 
 
 export class CountList extends React.Component {
+    showToolTip(event) {
+        let tooltip = ReactDOM.findDOMNode(this.refs.tooltip);
+        tooltip.style.display = 'block';
+        tooltip.style.left = (event.pageX - 20) + 'px';
+        tooltip.style.top = (event.pageY - 20) + 'px';
+        ReactDOM.render(<p>{event.currentTarget.title}</p>, tooltip);
+    }
+    hideToolTip(event) {
+        let tooltip = ReactDOM.findDOMNode(this.refs.tooltip);
+        if (event.relatedTarget && !tooltip.contains(event.relatedTarget)) {
+            tooltip.style.display = 'none';
+        } else {
+            console.log(event.target);
+            console.log(event.currentTarget);
+            console.log(event.relatedTarget);
+        }
+
+    }
     render() {
         return (
             <main>
                 <h1>내가 본 애니 목록</h1>
                 <Summary data={this.props.data} />
-                <Table data={this.props.data} />
+                <Table data={this.props.data} onToolTip={this.showToolTip.bind(this)} />
+                <ToolTip ref="tooltip" onMouseLeave={this.hideToolTip.bind(this)} />
             </main>
         );
     }
@@ -38,7 +58,7 @@ class Table extends React.Component {
                         <th>점수</th>
                     </tr>
                 </thead>
-                <Rows data={this.props.data} />
+                <Rows data={this.props.data} onToolTip={this.props.onToolTip} />
             </table>
         );
     }
@@ -54,7 +74,7 @@ class Rows extends React.Component {
 
             let info_icon = null;
             if (ani.comment) {
-                info_icon = <span className="info" title={ani.comment}></span>;
+                info_icon = <span className="info" title={ani.comment} onMouseEnter={this.props.onToolTip}></span>;
             }
             return (
                 <tr key={ani.id}>
@@ -75,5 +95,11 @@ class Rows extends React.Component {
                 {rows}
             </tbody>
         );
+    }
+}
+
+class ToolTip extends React.Component {
+    render() {
+        return <div className="ani_tooltip" onMouseLeave={this.props.onMouseLeave} />;
     }
 }
