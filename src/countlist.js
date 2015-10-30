@@ -14,19 +14,14 @@ export class CountList extends React.Component {
         let tooltip = ReactDOM.findDOMNode(this.refs.tooltip);
         if (event.relatedTarget && !tooltip.contains(event.relatedTarget)) {
             tooltip.style.display = 'none';
-        } else {
-            console.log(event.target);
-            console.log(event.currentTarget);
-            console.log(event.relatedTarget);
         }
-
     }
     render() {
         return (
             <main>
                 <h1>내가 본 애니 목록</h1>
                 <Summary data={this.props.data} />
-                <Table data={this.props.data} onToolTip={this.showToolTip.bind(this)} />
+                <Table data={this.props.data} onToolTip={this.showToolTip.bind(this)} sort={this.props.sort} />
                 <ToolTip ref="tooltip" onMouseLeave={this.hideToolTip.bind(this)} />
             </main>
         );
@@ -47,15 +42,15 @@ class Table extends React.Component {
             <table>
                 <thead>
                     <tr>
-                        <th>번호</th>
-                        <th>현황</th>
-                        <th>유형</th>
-                        <th>제목</th>
-                        <th>시리즈</th>
-                        <th>방영 시작</th>
-                        <th>감상 편수</th>
-                        <th>전체 편수</th>
-                        <th>점수</th>
+                        <th onClick={this.props.sort('id')}>번호</th>
+                        <th onClick={this.props.sort('status')}>현황</th>
+                        <th onClick={this.props.sort('category')}>유형</th>
+                        <th onClick={this.props.sort('title')}>제목</th>
+                        <th onClick={this.props.sort('series')}>시리즈</th>
+                        <th onClick={this.props.sort('start')}>방영 시작</th>
+                        <th onClick={this.props.sort('watched')}>감상 편수</th>
+                        <th onClick={this.props.sort('total')}>전체 편수</th>
+                        <th onClick={this.props.sort('score')}>점수</th>
                     </tr>
                 </thead>
                 <Rows data={this.props.data} onToolTip={this.props.onToolTip} />
@@ -78,7 +73,7 @@ class Rows extends React.Component {
             }
             return (
                 <tr key={ani.id}>
-                    <td>{index+1}</td>
+                    <td>{ani.id+1}</td>
                     <td>{ani.status}</td>
                     <td>{ani.category}</td>
                     <td>{r19}{ani.title}{info_icon}</td>
