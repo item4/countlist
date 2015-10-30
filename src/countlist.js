@@ -3,6 +3,72 @@ import ReactDOM from 'react-dom';
 
 
 export class CountList extends React.Component {
+    constructor() {
+        super();
+        this.state = {
+            data: [],
+            sortOrder: {
+                'id': 'asc',
+                'watched': 'asc',
+                'total': 'asc',
+                'score': 'asc',
+                'status': 'asc',
+                'category': 'asc',
+                'title': 'asc',
+                'series': 'asc',
+                'start': 'asc'
+            },
+            orderBy: 'id'
+        };
+    }
+    componentWillMount() {
+        fetch('data.json')
+            .then(function(response){
+                return response.json();
+            })
+            .then(function(data){
+                data.sort(this.getSort(this.state.orderBy));
+                this.toggleSortOrder(this.state.orderBy);
+                this.setState({data: data});
+            }.bind(this)).catch(function(ex){
+                console.log(ex);
+            });
+    }
+    toggleSortOrder(key) {
+        let sortOrder = this.state.sortOrder;
+        sortOrder[key] = sortOrder[key] === 'asc' ? 'desc' : 'asc';
+        this.setState({sortOrder: sortOrder});
+    }
+    handleOrderChange(event) {
+        let key = event.target.dataset.key;
+        this.setState({orderBy: key});
+    }
+    getSort(key) {
+        switch (key) {
+            case 'id':
+            case 'watched':
+            case 'total':
+            case 'score':
+                if (this.state.sortOrder[key] === 'asc') {
+                    return (a, b) => { return a[key]-b[key]; };
+                } else {
+                    return (a, b) => { return b[key]-a[key]; };
+                }
+                break;
+            case 'status':
+            case 'category':
+            case 'title':
+            case 'series':
+            case 'start':
+            default:
+                if (this.state.sortOrder[cond] === 'asc') {
+                    return (a, b) => { return a[key] === b[key] ? 0 : a[key] > b[key] ? -1 : 1; };
+                } else {
+                    return (a, b) => { return a[key] === b[key] ? 0 : b[key] > a[key] ? -1 : 1; };
+                }
+                break;
+        }
+    }
     showToolTip(event) {
         let tooltip = ReactDOM.findDOMNode(this.refs.tooltip);
         tooltip.style.display = 'block';
@@ -20,8 +86,8 @@ export class CountList extends React.Component {
         return (
             <main>
                 <h1>내가 본 애니 목록</h1>
-                <Summary data={this.props.data} />
-                <Table data={this.props.data} onToolTip={this.showToolTip.bind(this)} getSort={this.props.getSort} sortOrder={this.props.sortOrder} toggleSortOrder={this.props.toggleSortOrder} />
+                <Summary data={this.state.data} />
+                <Table data={this.state.data} onToolTip={this.showToolTip.bind(this)} sortOrder={this.state.sortOrder} handleOrderChange={this.handleOrderChange.bind(this)} />
                 <ToolTip ref="tooltip" onMouseLeave={this.hideToolTip.bind(this)} />
             </main>
         );
@@ -37,26 +103,26 @@ class Summary extends React.Component {
 }
 
 class Table extends React.Component {
-    chageOrder(key) {
-        let sortFunc = this.props.getSort(key);
-        this.props.data.sort(sortFunc);
-        this.props.toggleSortOrder(key);
-        ReactDOM.render(<CountList data={this.props.data} getSort={this.props.getSort} sortOrder={this.props.sortOrder} toggleSortOrder={this.props.toggleSortOrder} />, document.querySelector('body'));
-    }
     render() {
+        let cols = [
+            {key: 'id', name: '번호', type: 'num'},
+            {key: 'status', name: '현황', type: 'string'},
+            {key: 'category', name: '유형', type: 'string'},
+            {key: 'title', name: '제목', type: 'string'},
+            {key: 'series', name: '시리즈', type: 'string'},
+            {key: 'start', name: '방영 시작', type: 'string'},
+            {key: 'watched', name: '감상 편수', type: 'num'},
+            {key: 'total', name: '전체 편수', type: 'num'},
+            {key: 'score', name: '점수', type: 'num'},
+        ];
+        let rendered_cols = cols.map((col) => {
+            return <th onClick={this.props.handleOrderChange} data-key={col.key}>{col.name}<span className={col.type + ' ' + (this.props.sortOrder[col.key] === 'asc' ? 'desc' : 'asc')}></span></th>
+        });
         return (
             <table>
                 <thead>
                     <tr>
-                        <th onClick={() => this.chageOrder('id')}>번호<span className={'num ' + (this.props.sortOrder.id === 'asc' ? 'desc' : 'asc')}></span></th>
-                        <th onClick={() => this.chageOrder('status')}>현황<span className={'string ' + (this.props.sortOrder.status === 'asc' ? 'desc' : 'asc')}></span></th>
-                        <th onClick={() => this.chageOrder('category')}>유형<span className={'string ' + (this.props.sortOrder.category === 'asc' ? 'desc' : 'asc')}></span></th>
-                        <th onClick={() => this.chageOrder('title')}>제목<span className={'string ' + (this.props.sortOrder.title === 'asc' ? 'desc' : 'asc')}></span></th>
-                        <th onClick={() => this.chageOrder('series')}>시리즈<span className={'string ' + (this.props.sortOrder.series === 'asc' ? 'desc' : 'asc')}></span></th>
-                        <th onClick={() => this.chageOrder('start')}>방영 시작<span className={'string ' + (this.props.sortOrder.start === 'asc' ? 'desc' : 'asc')}></span></th>
-                        <th onClick={() => this.chageOrder('watched')}>감상 편수<span className={'num ' + (this.props.sortOrder.watched === 'asc' ? 'desc' : 'asc')}></span></th>
-                        <th onClick={() => this.chageOrder('total')}>전체 편수<span className={'num ' + (this.props.sortOrder.total === 'asc' ? 'desc' : 'asc')}></span></th>
-                        <th onClick={() => this.chageOrder('score')}>점수<span className={'num ' + (this.props.sortOrder.score === 'asc' ? 'desc' : 'asc')}></span></th>
+                        {rendered_cols}
                     </tr>
                 </thead>
                 <Rows data={this.props.data} onToolTip={this.props.onToolTip} />
