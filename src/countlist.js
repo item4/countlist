@@ -125,7 +125,7 @@ class Table extends React.Component {
             {key: 'score', name: '점수', type: 'num'},
         ];
         let rendered_cols = cols.map((col) => {
-            return <th onClick={this.props.handleOrderChange} data-key={col.key}>{col.name}<span className={col.type + ' ' + this.props.sortOrder[col.key]}></span></th>
+            return <th onClick={this.props.handleOrderChange} data-key={col.key}>{col.name}<span className={col.type + ' ' + this.props.sortOrder[col.key]} aria-hidden="true"></span></th>
         });
         return (
             <table>
@@ -145,12 +145,12 @@ class Rows extends React.Component {
         let rows = this.props.data.map((ani, index) => {
             let r19 = null;
             if (ani.r19) {
-                r19 = <span className="r19" title="이 애니는 19금입니다!"></span>;
+                r19 = <span className="r19" title="이 애니는 19금입니다!" aria-hidden="true"></span>;
             }
 
             let info_icon = null;
             if (ani.comment) {
-                info_icon = <span className="info" title={ani.comment} onMouseEnter={this.props.onToolTip}></span>;
+                info_icon = <span className="info" title={ani.comment} onMouseEnter={this.props.onToolTip} aria-hidden="true"></span>;
             }
             return (
                 <tr key={ani.id}>
