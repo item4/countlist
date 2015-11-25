@@ -24,7 +24,7 @@ for index, row in enumerate(rows):
         'watched': int(non_number.sub('', row[6].text) or -1),
         'total': int(non_number.sub('', row[7].text) or -1),
         'score': int(non_number.sub('', row[8].text) or 0),
-        'class': row[9].attrib.get('class', None),
+        'r19': 'r19' in row[9].attrib.get('class', '').split(' '),
         'comment': row[9].text,
     })
 
