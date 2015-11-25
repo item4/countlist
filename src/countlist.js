@@ -8,7 +8,7 @@ export class CountList extends React.Component {
         this.state = {
             data: [],
             sortOrder: {
-                'id': 'asc',
+                'id': 'desc',
                 'watched': 'asc',
                 'total': 'asc',
                 'score': 'asc',
@@ -27,8 +27,7 @@ export class CountList extends React.Component {
                 return response.json();
             })
             .then(function(data){
-                data.sort(this.getSort(this.state.orderBy));
-                this.toggleSortOrder(this.state.orderBy);
+
                 this.setState({data: data});
             }.bind(this)).catch(function(ex){
                 console.log(ex);
@@ -36,11 +35,18 @@ export class CountList extends React.Component {
     }
     toggleSortOrder(key) {
         let sortOrder = this.state.sortOrder;
-        sortOrder[key] = sortOrder[key] === 'asc' ? 'desc' : 'asc';
+        for (let k in sortOrder) {
+            if (k === key) {
+                sortOrder[k] = sortOrder[k] === 'asc' ? 'desc' : 'asc';
+            } else {
+                sortOrder[k] = 'asc';
+            }
+        }
         this.setState({sortOrder: sortOrder});
     }
     handleOrderChange(event) {
-        let key = event.target.dataset.key;
+        let key = event.currentTarget.dataset.key;
+        this.toggleSortOrder(key);
         this.setState({orderBy: key});
     }
     getSort(key) {
@@ -50,9 +56,9 @@ export class CountList extends React.Component {
             case 'total':
             case 'score':
                 if (this.state.sortOrder[key] === 'asc') {
-                    return (a, b) => { return a[key]-b[key]; };
-                } else {
                     return (a, b) => { return b[key]-a[key]; };
+                } else {
+                    return (a, b) => { return a[key]-b[key]; };
                 }
                 break;
             case 'status':
@@ -61,7 +67,7 @@ export class CountList extends React.Component {
             case 'series':
             case 'start':
             default:
-                if (this.state.sortOrder[cond] === 'asc') {
+                if (this.state.sortOrder[key] === 'asc') {
                     return (a, b) => { return a[key] === b[key] ? 0 : a[key] > b[key] ? -1 : 1; };
                 } else {
                     return (a, b) => { return a[key] === b[key] ? 0 : b[key] > a[key] ? -1 : 1; };
@@ -83,11 +89,14 @@ export class CountList extends React.Component {
         }
     }
     render() {
+        let data = this.state.data;
+        data.sort(this.getSort(this.state.orderBy));
+
         return (
             <main>
                 <h1>내가 본 애니 목록</h1>
-                <Summary data={this.state.data} />
-                <Table data={this.state.data} onToolTip={this.showToolTip.bind(this)} sortOrder={this.state.sortOrder} handleOrderChange={this.handleOrderChange.bind(this)} />
+                <Summary data={data} />
+                <Table data={data} onToolTip={this.showToolTip.bind(this)} sortOrder={this.state.sortOrder} handleOrderChange={this.handleOrderChange.bind(this)} />
                 <ToolTip ref="tooltip" onMouseLeave={this.hideToolTip.bind(this)} />
             </main>
         );
@@ -116,7 +125,7 @@ class Table extends React.Component {
             {key: 'score', name: '점수', type: 'num'},
         ];
         let rendered_cols = cols.map((col) => {
-            return <th onClick={this.props.handleOrderChange} data-key={col.key}>{col.name}<span className={col.type + ' ' + (this.props.sortOrder[col.key] === 'asc' ? 'desc' : 'asc')}></span></th>
+            return <th onClick={this.props.handleOrderChange} data-key={col.key}>{col.name}<span className={col.type + ' ' + this.props.sortOrder[col.key]}></span></th>
         });
         return (
             <table>
@@ -135,7 +144,7 @@ class Rows extends React.Component {
     render() {
         let rows = this.props.data.map((ani, index) => {
             let r19 = null;
-            if (ani.class === 'r19') {
+            if (ani.r19) {
                 r19 = <span className="r19" title="이 애니는 19금입니다!"></span>;
             }
 
