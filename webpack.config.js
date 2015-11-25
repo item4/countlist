@@ -5,9 +5,25 @@ module.exports = {
     },
     module: {
         loaders: [
-            { test: /\.jsx?$/, exclude: /node_modules/, loader: 'babel' },
-            { test: /\.s?css$/, loaders: ['style', 'css', 'sass'] },
-            { test: /\.(eot|woff2?|ttf|svg)(\?.+)?$/, loader: 'file', query: { name: 'dist/[name].[ext]' } }
+            {
+                test: /\.jsx?$/,
+                exclude: /node_modules/,
+                loader: 'babel',
+                query: {
+                    presets: ['react', 'es2015', 'stage-0']
+                }
+            },
+            {
+                test: /\.s?css$/,
+                loaders: ['style', 'css', 'sass']
+            },
+            {
+                test: /\.(eot|woff2?|ttf|svg)(\?.+)?$/,
+                loader: 'file',
+                query: {
+                    name: 'dist/[name].[ext]'
+                }
+            }
         ]
     },
     resolve: {
