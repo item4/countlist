@@ -2,7 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 
 
-export class CountList extends React.Component {
+export default class SmartTable extends React.Component {
     constructor() {
         super();
         this.state = {

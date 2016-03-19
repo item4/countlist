@@ -1,8 +1,8 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 
-import {CountList} from 'countlist';
+import SmartTable from 'smarttable';
 
 import 'style.scss';
 
-ReactDOM.render(<CountList orderBy="id" />, document.querySelector('body'));
+ReactDOM.render(<SmartTable orderBy="id" />, document.querySelector('body'));
