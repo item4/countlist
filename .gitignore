@@ -5,3 +5,4 @@ node_modules
 *.svg
 *.ttf
 *.eot
+data.json

@@ -3,110 +3,110 @@ $icon-font-path: '~bootstrap-sass/assets/fonts/bootstrap/';
 $fa-font-path: '~font-awesome/fonts';
 @import "~font-awesome/scss/font-awesome.scss";
 
-main {
-    @extend .container;
+section {
+  @extend .container;
 
-    table {
-        @extend .table;
+  table {
+    @extend .table;
+    
+    th:nth-of-type(1),
+    td:nth-of-type(1) {
+      text-align: center;
+      width: 60px;
+    }
+    th:nth-of-type(2),
+    td:nth-of-type(2) {
+      text-align: center;
+      width: 60px;
+    }
+    th:nth-of-type(3),
+    td:nth-of-type(3) {
+      text-align: center;
+      width: 60px;
+    }
+    th:nth-of-type(4),
+    th:nth-of-type(5) {
+      text-align: center;
+    }
+    th:nth-of-type(6),
+    td:nth-of-type(6) {
+      text-align: center;
+      width: 100px;
+    }
+    th:nth-of-type(7),
+    td:nth-of-type(7) {
+      text-align: center;
+      width: 90px;
+    }
+    th:nth-of-type(8),
+    td:nth-of-type(8) {
+      text-align: center;
+      width: 90px;
+    }
+    th:nth-of-type(9),
+    td:nth-of-type(9) {
+      text-align: center;
+      width: 60px;
+    }
+    thead {
+      tr {
+        th {
+          cursor: pointer;
 
-        th:nth-of-type(1),
-        td:nth-of-type(1) {
-            text-align: center;
-            width: 60px;
-        }
-        th:nth-of-type(2),
-        td:nth-of-type(2) {
-            text-align: center;
-            width: 60px;
-        }
-        th:nth-of-type(3),
-        td:nth-of-type(3) {
-            text-align: center;
-            width: 60px;
-        }
-        th:nth-of-type(4),
-        th:nth-of-type(5) {
-            text-align: center;
-        }
-        th:nth-of-type(6),
-        td:nth-of-type(6) {
-            text-align: center;
-            width: 100px;
-        }
-        th:nth-of-type(7),
-        td:nth-of-type(7) {
-            text-align: center;
-            width: 90px;
-        }
-        th:nth-of-type(8),
-        td:nth-of-type(8) {
-            text-align: center;
-            width: 90px;
-        }
-        th:nth-of-type(9),
-        td:nth-of-type(9) {
-            text-align: center;
-            width: 60px;
-        }
-        thead {
-            tr {
-                th {
-                    cursor: pointer;
-
-                    span[class] {
-                        @extend .fa;
-
-                        &.num {
-                            &.asc {
-                                @extend .fa-sort-amount-asc;
-                            }
-                            &.desc {
-                                @extend .fa-sort-amount-desc;
-                            }
-                        }
-                        &.string {
-                            &.asc {
-                                @extend .fa-sort-alpha-asc;
-                            }
-                            &.desc {
-                                @extend .fa-sort-alpha-desc;
-                            }
-                        }
-
-                        margin-left: 5px;
-                    }
-                }
-            }
-        }
-
-        span[class] {
+          span[class] {
             @extend .fa;
-            &.r19 {
-                @extend .fa-ban;
 
-                color: red;
-                margin-right: 3px;
+            &.num {
+              &.asc {
+                @extend .fa-sort-amount-asc;
+              }
+              &.desc {
+                @extend .fa-sort-amount-desc;
+              }
+            }
+            &.string {
+              &.asc {
+                @extend .fa-sort-alpha-asc;
+              }
+              &.desc {
+                @extend .fa-sort-alpha-desc;
+              }
             }
 
-            &.info {
-                @extend .fa-info-circle;
-
-                margin-left: 5px;
-            }
+            margin-left: 5px;
+          }
         }
+      }
     }
 
-    .ani_tooltip {
-        background: rgba(100, 100, 100, 0.8);
-        border-radius: 1rem;
-        color: white;
-        display: none;
-        height: 100px;
-        left: 0px;
-        padding: 2rem;
-        position: absolute;
-        top: 0px;
-        width: 400px;
-        z-index: 1000;
+    span[class] {
+      @extend .fa;
+      &.r19 {
+        @extend .fa-ban;
+
+        color: red;
+        margin-right: 3px;
+      }
+
+      &.info {
+        @extend .fa-info-circle;
+
+        margin-left: 5px;
+      }
     }
+  }
+
+  .ani_tooltip {
+    background: rgba(100, 100, 100, 0.8);
+    border-radius: 1rem;
+    color: white;
+    display: none;
+    height: 100px;
+    left: 0px;
+    padding: 2rem;
+    position: absolute;
+    top: 0px;
+    width: 400px;
+    z-index: 1000;
+  }
 }
