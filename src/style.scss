@@ -1,112 +1,134 @@
 $icon-font-path: '~bootstrap-sass/assets/fonts/bootstrap/';
 @import "~bootstrap-sass/assets/stylesheets/bootstrap";
-$fa-font-path: '~font-awesome/fonts';
-@import "~font-awesome/scss/font-awesome.scss";
+$fa-font-path: '~font-awesome-placeholder/fonts';
+@import "~font-awesome-placeholder/scss/font-awesome-placeholder.scss";
 
-section {
+%small-column {
+  text-align: center;
+  width: 60px;
+}
+
+%middle-column {
+  text-align: center;
+  width: 90px;
+}
+
+.st {
   @extend .container;
+}
 
-  table {
-    @extend .table;
-    
-    th:nth-of-type(1),
-    td:nth-of-type(1) {
-      text-align: center;
-      width: 60px;
-    }
-    th:nth-of-type(2),
-    td:nth-of-type(2) {
-      text-align: center;
-      width: 60px;
-    }
-    th:nth-of-type(3),
-    td:nth-of-type(3) {
-      text-align: center;
-      width: 60px;
-    }
-    th:nth-of-type(4),
-    th:nth-of-type(5) {
-      text-align: center;
-    }
-    th:nth-of-type(6),
-    td:nth-of-type(6) {
-      text-align: center;
-      width: 100px;
-    }
-    th:nth-of-type(7),
-    td:nth-of-type(7) {
-      text-align: center;
-      width: 90px;
-    }
-    th:nth-of-type(8),
-    td:nth-of-type(8) {
-      text-align: center;
-      width: 90px;
-    }
-    th:nth-of-type(9),
-    td:nth-of-type(9) {
-      text-align: center;
-      width: 60px;
-    }
-    thead {
-      tr {
-        th {
-          cursor: pointer;
+.st-tooltip {
+  background: rgba(100, 100, 100, 0.8);
+  border-radius: 1rem;
+  color: white;
+  display: none;
+  height: 100px;
+  left: 0px;
+  padding: 2rem;
+  position: absolute;
+  top: 0px;
+  width: 400px;
+  z-index: 1000;
+}
 
-          span[class] {
-            @extend .fa;
+.st-table {
+  @extend .table;
+}
 
-            &.num {
-              &.asc {
-                @extend .fa-sort-amount-asc;
-              }
-              &.desc {
-                @extend .fa-sort-amount-desc;
-              }
-            }
-            &.string {
-              &.asc {
-                @extend .fa-sort-alpha-asc;
-              }
-              &.desc {
-                @extend .fa-sort-alpha-desc;
-              }
-            }
+.st-table-head-column__id,
+.st-table-head-column__status,
+.st-table-head-column__category,
+.st-table-head-column__title,
+.st-table-head-column__series,
+.st-table-head-column__start,
+.st-table-head-column__watched,
+.st-table-head-column__total,
+.st-table-head-column__score {
+  cursor: pointer;
+}
 
-            margin-left: 5px;
-          }
-        }
-      }
-    }
+.st-table-column__id,
+.st-table-head-column__id {
+  @extend %small-column;
+}
 
-    span[class] {
-      @extend .fa;
-      &.r19 {
-        @extend .fa-ban;
+.st-table-column__status,
+.st-table-head-column__status {
+  @extend %small-column;
+}
 
-        color: red;
-        margin-right: 3px;
-      }
+.st-table-column__category,
+.st-table-head-column__category {
+  @extend %small-column;
+}
 
-      &.info {
-        @extend .fa-info-circle;
+.st-table-head-column__title,
+.st-table-head-column__series {
+  text-align: center;
+}
 
-        margin-left: 5px;
-      }
-    }
-  }
+.st-table-column__start,
+.st-table-head-column__start {
+  width: 100px;
+}
 
-  .ani_tooltip {
-    background: rgba(100, 100, 100, 0.8);
-    border-radius: 1rem;
-    color: white;
-    display: none;
-    height: 100px;
-    left: 0px;
-    padding: 2rem;
-    position: absolute;
-    top: 0px;
-    width: 400px;
-    z-index: 1000;
-  }
+.st-table-column__watched,
+.st-table-head-column__watched {
+  @extend %middle-column;
+}
+
+.st-table-column__total,
+.st-table-head-column__total {
+  @extend %middle-column;
+}
+
+
+.st-table-column__score,
+.st-table-head-column__score {
+  @extend %small-column;
+}
+
+span.icon__r19,
+span.icon__info,
+span.st-icon__num--asc,
+span.st-icon__num--desc,
+span.st-icon__string--asc,
+span.st-icon__string--desc {
+  @extend %fa;
+}
+
+span.icon__r19 {
+  @extend %fa-ban;
+
+  color: red;
+  margin-right: 3px;
+}
+
+span.icon__info {
+  @extend %fa-info-circle;
+
+  margin-left: 5px;
+}
+
+span.st-icon__num--asc,
+span.st-icon__num--desc,
+span.st-icon__string--asc,
+span.st-icon__string--desc {
+  margin-left: 5px;
+}
+
+span.st-icon__num--asc {
+  @extend %fa-sort-amount-asc;
+}
+
+span.st-icon__num--desc {
+  @extend %fa-sort-amount-desc;
+}
+
+span.st-icon__string--asc {
+  @extend %fa-sort-alpha-asc;
+}
+
+span.st-icon__string--desc {
+  @extend %fa-sort-alpha-desc;
 }

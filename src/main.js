@@ -21,10 +21,10 @@ const columns = [
       let info_icon = null;
 
       if (data.r19) {
-        r19 = <span className="r19" title="이 애니는 19금입니다!" aria-hidden="true"></span>;
+        r19 = <span className="icon__r19" title="이 애니는 19금입니다!" aria-hidden="true"></span>;
       }
       if (data.comment) {
-        info_icon = <span className="info" title={data.comment} onMouseEnter={rows.props.onToolTip} aria-hidden="true"></span>;
+        info_icon = <span className="icon__info" title={data.comment} onMouseEnter={rows.props.onToolTip} aria-hidden="true"></span>;
       }
       return <span>{r19}{data.title}{info_icon}</span>;
     }

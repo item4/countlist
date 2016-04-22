@@ -90,7 +90,7 @@ export default class SmartTable extends React.Component {
     data.sort(this.getSortFunction(this.state.orderBy));
 
     return (
-      <section>
+      <section className="st">
         <Table columns={this.props.columns} data={data} onToolTip={this.showToolTip.bind(this)} sortOrder={this.state.currentSortOrder} handleOrderChange={this.handleOrderChange.bind(this)} />
         <ToolTip ref="tooltip" onMouseLeave={this.hideToolTip.bind(this)} />
       </section>
@@ -101,7 +101,7 @@ export default class SmartTable extends React.Component {
 class Table extends React.Component {
   render() {
     return (
-      <table>
+      <table className="st-table">
         <TableHead columns={this.props.columns} sortOrder={this.props.sortOrder} handleOrderChange={this.props.handleOrderChange} />
         <TableBody columns={this.props.columns} data={this.props.data} onToolTip={this.props.onToolTip} />
       </table>
@@ -113,8 +113,8 @@ class TableHead extends React.Component {
   render() {
     const th = this.props.columns.map(col => {
       return (
-        <th onClick={this.props.handleOrderChange} data-key={col.key} key={col.key}>
-          {col.name}<span className={[col.type, this.props.sortOrder[col.key]].join(' ')} aria-hidden="true"></span>
+        <th className={`st-table-head-column__${col.key}`} onClick={this.props.handleOrderChange} data-key={col.key} key={col.key}>
+          {col.name}<span className={`st-icon__${col.type}--${this.props.sortOrder[col.key]}`} aria-hidden="true"></span>
         </th>
       );
     });
@@ -133,9 +133,9 @@ class TableBody extends React.Component {
     const rows = this.props.data.map((row, index) => {
       const td = this.props.columns.map(col => {
         if (col.print) {
-          return <td key={col.key}>{col.print(row, this)}</td>;
+          return <td className={`st-table-column__${col.key}`} key={col.key}>{col.print(row, this)}</td>;
         } else {
-          return <td key={col.key}>{row[col.key]}</td>;
+          return <td className={`st-table-column__${col.key}`} key={col.key}>{row[col.key]}</td>;
         }
       });
       return (
@@ -154,6 +154,6 @@ class TableBody extends React.Component {
 
 class ToolTip extends React.Component {
   render() {
-    return <div className="ani_tooltip" onMouseLeave={this.props.onMouseLeave} />;
+    return <div className="st-tooltip" onMouseLeave={this.props.onMouseLeave} />;
   }
 }
