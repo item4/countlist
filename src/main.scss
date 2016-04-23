@@ -1,0 +1,21 @@
+$fa-font-path: '../node_modules/font-awesome-placeholder/fonts';
+
+@import "~font-awesome-placeholder/scss/font-awesome-placeholder.scss";
+
+span.icon__r19,
+span.icon__info {
+  @extend %fa;
+}
+
+span.icon__r19 {
+  @extend %fa-ban;
+
+  color: red;
+  margin-right: 3px;
+}
+
+span.icon__info {
+  @extend %fa-info-circle;
+
+  margin-left: 5px;
+}

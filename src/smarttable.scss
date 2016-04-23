@@ -1,5 +1,4 @@
-$icon-font-path: '~bootstrap-sass/assets/fonts/bootstrap/';
-$fa-font-path: '~font-awesome-placeholder/fonts';
+$fa-font-path: '../node_modules/font-awesome-placeholder/fonts';
 
 @import "~bootstrap-sass/assets/stylesheets/bootstrap/variables";
 @import "~bootstrap-sass/assets/stylesheets/bootstrap/mixins";
@@ -93,26 +92,11 @@ $fa-font-path: '~font-awesome-placeholder/fonts';
   @extend %small-column;
 }
 
-span.icon__r19,
-span.icon__info,
 span.st-icon__num--asc,
 span.st-icon__num--desc,
 span.st-icon__string--asc,
 span.st-icon__string--desc {
   @extend %fa;
-}
-
-span.icon__r19 {
-  @extend %fa-ban;
-
-  color: red;
-  margin-right: 3px;
-}
-
-span.icon__info {
-  @extend %fa-info-circle;
-
-  margin-left: 5px;
 }
 
 span.st-icon__num--asc,

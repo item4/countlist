@@ -2,8 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 
 import SmartTable from 'smarttable';
-
-import 'style.scss';
+import styles from './main.scss';
 
 
 const orderBy = 'id';
@@ -21,10 +20,10 @@ const columns = [
       let info_icon = null;
 
       if (data.r19) {
-        r19 = <span className="icon__r19" title="이 애니는 19금입니다!" aria-hidden="true"></span>;
+        r19 = <span className={styles.icon__r19} title="이 애니는 19금입니다!" aria-hidden="true"></span>;
       }
       if (data.comment) {
-        info_icon = <span className="icon__info" title={data.comment} onMouseEnter={rows.props.onToolTip} aria-hidden="true"></span>;
+        info_icon = <span className={styles.icon__info} title={data.comment} onMouseEnter={rows.props.onToolTip} aria-hidden="true"></span>;
       }
       return <span>{r19}{data.title}{info_icon}</span>;
     }
