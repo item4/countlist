@@ -115,8 +115,8 @@ class TableHead extends React.Component {
   render() {
     const th = this.props.columns.map(col => {
       return (
-        <th styleName={`st-table-head-column__${col.key}`} onClick={this.props.handleOrderChange} data-key={col.key} key={col.key}>
-          {col.name}<span styleName={`st-icon__${col.type}--${this.props.sortOrder[col.key]}`} aria-hidden="true"></span>
+        <th styleName={`st-table-column--head st-table-column__${col.key}--head`} onClick={this.props.handleOrderChange} data-key={col.key} key={col.key}>
+          {col.name}<span styleName={`st-icon st-icon__${col.type}--${this.props.sortOrder[col.key]}`} aria-hidden="true"></span>
         </th>
       );
     });
@@ -135,9 +135,9 @@ class TableBody extends React.Component {
     const rows = this.props.data.map((row, index) => {
       const td = this.props.columns.map(col => {
         if (col.print) {
-          return <td className={this.props.styles[`st-table-column__${col.key}`]} key={col.key}>{col.print(row, this)}</td>;
+          return <td className={[this.props.styles['st-table-column'], this.props.styles[`st-table-column__${col.key}`]].join(' ')} key={col.key}>{col.print(row, this)}</td>;
         } else {
-          return <td className={this.props.styles[`st-table-column__${col.key}`]} key={col.key}>{row[col.key]}</td>;
+          return <td className={[this.props.styles['st-table-column'], this.props.styles[`st-table-column__${col.key}`]].join(' ')} key={col.key}>{row[col.key]}</td>;
         }
       });
       return (
@@ -160,8 +160,8 @@ class ToolTip extends React.Component {
   }
 }
 
-Table = CSSModules(Table, styles);
-TableHead = CSSModules(TableHead, styles);
-TableBody = CSSModules(TableBody, styles);
-ToolTip = CSSModules(ToolTip, styles);
-export default CSSModules(SmartTable, styles);
+Table = CSSModules(Table, styles, {allowMultiple: true});
+TableHead = CSSModules(TableHead, styles, {allowMultiple: true});
+TableBody = CSSModules(TableBody, styles, {allowMultiple: true});
+ToolTip = CSSModules(ToolTip, styles, {allowMultiple: true});
+export default CSSModules(SmartTable, styles, {allowMultiple: true});

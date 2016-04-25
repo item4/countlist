@@ -40,62 +40,51 @@ $fa-font-path: '../node_modules/font-awesome-placeholder/fonts';
   @extend .table;
 }
 
-.st-table-head-column__id,
-.st-table-head-column__status,
-.st-table-head-column__category,
-.st-table-head-column__title,
-.st-table-head-column__series,
-.st-table-head-column__start,
-.st-table-head-column__watched,
-.st-table-head-column__total,
-.st-table-head-column__score {
+.st-table-column--head {
   cursor: pointer;
 }
 
 .st-table-column__id,
-.st-table-head-column__id {
+.st-table-column__id--head {
   @extend %small-column;
 }
 
 .st-table-column__status,
-.st-table-head-column__status {
+.st-table-column__status--head {
   @extend %small-column;
 }
 
 .st-table-column__category,
-.st-table-head-column__category {
+.st-table-column__category--head {
   @extend %small-column;
 }
 
-.st-table-head-column__title,
-.st-table-head-column__series {
+.st-table-column__title--head,
+.st-table-column__series--head {
   text-align: center;
 }
 
 .st-table-column__start,
-.st-table-head-column__start {
+.st-table-column__start--head {
   width: 100px;
 }
 
 .st-table-column__watched,
-.st-table-head-column__watched {
+.st-table-column__watched--head {
   @extend %middle-column;
 }
 
 .st-table-column__total,
-.st-table-head-column__total {
+.st-table-column__total--head {
   @extend %middle-column;
 }
 
 .st-table-column__score,
-.st-table-head-column__score {
+.st-table-column__score--head {
   @extend %small-column;
 }
 
-span.st-icon__num--asc,
-span.st-icon__num--desc,
-span.st-icon__string--asc,
-span.st-icon__string--desc {
+span.st-icon {
   @extend %fa;
 }
 

@@ -2,8 +2,8 @@ $fa-font-path: '../node_modules/font-awesome-placeholder/fonts';
 
 @import "~font-awesome-placeholder/scss/font-awesome-placeholder.scss";
 
-span.icon__r19,
-span.icon__info {
+span.icon,
+span.icon {
   @extend %fa;
 }
 
